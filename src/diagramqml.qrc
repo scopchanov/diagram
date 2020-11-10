@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>RubberBand.qml</file>
+        <file>DiagramView.qml</file>
+        <file>AbstractRuler.qml</file>
+    </qresource>
+</RCC>

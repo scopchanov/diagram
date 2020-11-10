@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>AppToolBar.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>AppDocument.qml</file>
+        <file>DocumentWidget.qml</file>
+        <file>AppRuler.qml</file>
+    </qresource>
+</RCC>

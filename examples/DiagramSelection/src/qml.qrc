@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>DiagramItem.qml</file>
+        <file>AppToolBar.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>AppDocument.qml</file>
+        <file>Delegate.qml</file>
+        <file>ItemList.qml</file>
+    </qresource>
+</RCC>

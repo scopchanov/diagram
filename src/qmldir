@@ -1,0 +1,5 @@
+module Scopchanov.Diagram
+DiagramView 1.0 qrc:///DiagramView.qml
+RubberBand 1.0 qrc:///RubberBand.qml
+AbstractRuler 1.0 qrc:///AbstractRuler.qml
+plugin Diagram
