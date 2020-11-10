@@ -26,6 +26,8 @@ import QtQuick 2.15
 import Scopchanov.Diagram 1.0
 
 AbstractRuler {
+	id: root
+
 	property color fillColor
 	property color outlineColor
 	property color markColor
@@ -41,30 +43,24 @@ AbstractRuler {
 			horizontalAlignment: Image.AlignLeft
 			verticalAlignment: Image.AlignTop
 			fillMode: Image.Tile
-			sourceSize: Qt.size(headroom, headroom)
-			source: "image://icons/" + (orientation === Qt.Horizontal
-										? "hrule" : "vrule")
-		}
-	}
+			sourceSize: Qt.size(isHorizontal ? 2*markInterval : headroom,
+								isHorizontal ? headroom : 2*markInterval)
+			source: "image://icons/"
+					+ (isHorizontal ? "hrule" : "vrule") + "/" + palette.mid
 
-	marksDelegate: Text {
-		font.pointSize: 7
-		text: markInterval*index
-		color: markColor
+			Binding on anchors.leftMargin {
+				when: isHorizontal
+				value: markOffset - 2*markInterval
+			}
 
-		x: isHorizontal ? marks[index] - 0.5*implicitWidth
-						: 0.5*(headroom - implicitWidth) - 2
-		y: isHorizontal ? 2 : marks[index] - 0.5*implicitHeight
-
-		Binding on transform {
-			when: orientation === Qt.Vertical
-			value: Rotation {
-				angle: -90
-				origin.x: 0.5*width
-				origin.y: 0.5*height
+			Binding on anchors.topMargin {
+				when: !isHorizontal
+				value: markOffset - 2*markInterval
 			}
 		}
 	}
+
+	marksDelegate: RulerMarkDelegate {}
 
 	foreground: Rectangle {
 		color: "transparent";

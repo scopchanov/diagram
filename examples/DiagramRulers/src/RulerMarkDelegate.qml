@@ -23,55 +23,23 @@ SOFTWARE.
 */
 
 import QtQuick 2.15
-import Scopchanov.Diagram 1.0
 
-DiagramView {
+Text {
 	id: root
 
-	property size gridSize
-	property real gridOffset
+	x: isHorizontal ? marks[index] - 0.5*implicitWidth
+					: 0.5*(headroom - implicitWidth) - 2
+	y: isHorizontal ? 2 : marks[index] - 0.5*implicitHeight
+	color: index % 2 == 0 ? markColor : Qt.lighter(markColor, 2.5)
+	font.pointSize: 7
+	text: markInterval*index
 
-	implicitWidth: sceneWidth
-	implicitHeight: sceneHeight
-
-	background: Rectangle {
-		Image {
-			id: grid
-
-			anchors.fill: parent
-			anchors.topMargin: gridOffset - gridSize.width
-			anchors.leftMargin: gridOffset - gridSize.height
-			horizontalAlignment: Image.AlignLeft
-			verticalAlignment: Image.AlignTop
-			fillMode: Image.Tile
-			sourceSize: gridSize
-			source: "image://icons/boxedGrid/" + palette.midlight
-		}
-	}
-
-	Item {
-		id: scene
-
-		width: 1291
-		height: 841
-
-		Rectangle {
-			x: 220; y: 170
-			width: text.implicitWidth + 48
-			height: text.implicitHeight + 48
-			color: Qt.rgba(1, 0, 1, 0.5)
-			border.width: 1.5
-			border.color: palette.dark
-			radius: 4
-
-			Text {
-				id: text
-
-				font.pointSize: 12
-				font.weight: Font.Medium
-				anchors.centerIn: parent
-				text: qsTr("Item at (200, 150)")
-			}
+	Binding on transform {
+		when: orientation === Qt.Vertical
+		value: Rotation {
+			angle: -90
+			origin.x: 0.5*width
+			origin.y: 0.5*height
 		}
 	}
 }

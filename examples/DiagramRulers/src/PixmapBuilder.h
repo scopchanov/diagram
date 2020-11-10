@@ -33,23 +33,26 @@ class PixmapBuilder : public QQuickImageProvider
 public:
 	enum PixmapType : int {
 		PT_Grid = 0,
-		PT_HRule,
-		PT_VRule
+		PT_HRuler,
+		PT_VRuler,
+		PT_DottedGrid,
+		PT_CrossedGrid,
+		PT_BoxedGrid,
+		PT_FancyGrid
 	};
 
 	explicit PixmapBuilder();
 
-	QPalette palette() const;
-	void setPalette(const QPalette &p);
-
-	QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) override;
+	QPixmap requestPixmap(const QString &id, QSize *size,
+						  const QSize &requestedSize) override;
 
 private:
-	void drawGrid(QPainter *painter);
-	void drawHRule(QPainter *painter);
-	void drawVRule(QPainter *painter);
-
-	QPalette m_palette;
+	void drawHRuler(QPainter *painter, const QColor &color, int width);
+	void drawVRuler(QPainter *painter, const QColor &color, int height);
+	void drawDottedGrid(QPainter *painter, const QColor &color);
+	void drawCrossedGrid(QPainter *painter, const QColor &color, int width);
+	void drawBoxedGrid(QPainter *painter, const QColor &color, int width);
+	void drawFancyGrid(QPainter *painter, const QColor &color, int width);
 };
 
 #endif // PIXMAPBUILDER_H

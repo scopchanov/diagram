@@ -28,27 +28,7 @@ SOFTWARE.
 PixmapBuilder::PixmapBuilder() :
 	QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
-	m_palette.setColor(QPalette::Window, QColor("#FFFFFF"));
-	m_palette.setColor(QPalette::AlternateBase, QColor("#FAFAFA"));
-	m_palette.setColor(QPalette::Base, QColor("#F5F5F5"));
-	m_palette.setColor(QPalette::Light, QColor("#EEEEEE"));
-	m_palette.setColor(QPalette::Midlight, QColor("#E0E0E0"));
-	m_palette.setColor(QPalette::Mid, QColor("#BDBDBD"));
-	m_palette.setColor(QPalette::Dark, QColor("#9E9E9E"));
-	m_palette.setColor(QPalette::Text, QColor("#757575"));
-	m_palette.setColor(QPalette::WindowText, QColor("#424242"));
-	m_palette.setColor(QPalette::Shadow, QColor("#000000"));
-	m_palette.setColor(QPalette::Highlight, QColor("#1976D2"));
-}
 
-QPalette PixmapBuilder::palette() const
-{
-	return m_palette;
-}
-
-void PixmapBuilder::setPalette(const QPalette &p)
-{
-	m_palette = p;
 }
 
 QPixmap PixmapBuilder::requestPixmap(const QString &id, QSize *size,
@@ -60,65 +40,112 @@ QPixmap PixmapBuilder::requestPixmap(const QString &id, QSize *size,
 	if (size)
 		*size = QSize(width, height);
 
+	const QStringList &source(id.split('/'));
+	const QColor &color(source.last());
 	QPixmap pixmap(requestedSize.width() > 0 ? requestedSize.width() : width,
 				   requestedSize.height() > 0 ? requestedSize.height() : height);
 	QPainter painter;
+	QHash<QString, int> hash;
+	int pixmapWidth = pixmap.width() - 1;
+	int pixmapHeight = pixmap.height() - 1;
 
 	pixmap.fill(Qt::transparent);
 
 	painter.begin(&pixmap);
 
-	QColor color(Qt::red);
+	hash.insert("hrule", PT_HRuler);
+	hash.insert("vrule", PT_VRuler);
+	hash.insert("dottedGrid", PT_DottedGrid);
+	hash.insert("crossedGrid", PT_CrossedGrid);
+	hash.insert("boxedGrid", PT_BoxedGrid);
+	hash.insert("fancyGrid", PT_FancyGrid);
 
-	QHash<QString, int> hash;
-
-	hash.insert("grid", PT_Grid);
-	hash.insert("hrule", PT_HRule);
-	hash.insert("vrule", PT_VRule);
-
-	switch (hash.value(id)) {
-		case PT_Grid:
-			drawGrid(&painter);
-			break;
-		case PT_HRule:
-			drawHRule(&painter);
-			break;
-		case PT_VRule:
-			drawVRule(&painter);
-			break;
+	switch (hash.value(source.first())) {
+	case PT_HRuler:
+		drawHRuler(&painter, color, pixmapWidth);
+		break;
+	case PT_VRuler:
+		drawVRuler(&painter, color, pixmapHeight);
+		break;
+	case PT_DottedGrid:
+		drawDottedGrid(&painter, color);
+		break;
+	case PT_CrossedGrid:
+		drawCrossedGrid(&painter, color, pixmapWidth);
+		break;
+	case PT_BoxedGrid:
+		drawBoxedGrid(&painter, color, pixmapWidth);
+		break;
+	case PT_FancyGrid:
+		drawFancyGrid(&painter, color, pixmapWidth);
+		break;
 	}
 
 	return pixmap;
 }
 
-void PixmapBuilder::drawGrid(QPainter *painter)
+void PixmapBuilder::drawHRuler(QPainter *painter, const QColor &color,
+							   int width)
 {
-	painter->setPen(QPen(m_palette.light().color()));
-	painter->drawLine(0, 10, 19, 10);
-	painter->drawLine(10, 0, 10, 19);
-	painter->setPen(QPen(m_palette.midlight().color()));
-	painter->drawLine(0, 0, 19, 0);
-	painter->drawLine(0, 0, 0, 19);
-	painter->setPen(QPen(m_palette.mid().color()));
-	painter->drawPoint(10, 10);
-	painter->setPen(QPen(m_palette.highlight().color()));
+	int halfWidth = 0.5*width + 0.5;
+
+
+	painter->setPen(QPen(color.lighter(135)));
+	painter->drawLine(halfWidth, 14, halfWidth, width);
+	painter->setPen(QPen(color));
+	painter->drawLine(0, 14, width, 14);
+	painter->drawLine(0, 14, 0, width);
+}
+
+void PixmapBuilder::drawVRuler(QPainter *painter, const QColor &color,
+							   int height)
+{
+	int halfHeight = 0.5*height + 0.5;
+
+	painter->setPen(QPen(color.lighter(135)));
+	painter->drawLine(14, halfHeight, height, halfHeight);
+	painter->setPen(color);
+	painter->drawLine(14, 0, height, 0);
+	painter->drawLine(14, 0, 14, height);
+}
+
+void PixmapBuilder::drawDottedGrid(QPainter *painter, const QColor &color)
+{
+	painter->setPen(color.darker(160));
 	painter->drawPoint(0, 0);
 }
 
-void PixmapBuilder::drawHRule(QPainter *painter)
+void PixmapBuilder::drawCrossedGrid(QPainter *painter, const QColor &color,
+									int width)
 {
-	painter->setPen(QPen(m_palette.midlight().color()));
-	painter->drawLine(10, 14, 10, 19);
-	painter->setPen(QPen(m_palette.dark().color()));
-	painter->drawLine(0, 14, 19, 14);
-	painter->drawLine(0, 14, 0, 19);
+	painter->setPen(color);
+	painter->drawLine(0, 0, 0.25*width, 0);
+	painter->drawLine(0, 0, 0, 0.25*width);
+	painter->drawLine(0, 0.75*width + 2, 0, width);
+	painter->drawLine(0.75*width + 2, 0, width, 0);
 }
 
-void PixmapBuilder::drawVRule(QPainter *painter)
+void PixmapBuilder::drawBoxedGrid(QPainter *painter, const QColor &color,
+								int width)
 {
-	painter->setPen(QPen(m_palette.midlight().color()));
-	painter->drawLine(14, 10, 19, 10);
-	painter->setPen(QPen(m_palette.dark().color()));
-	painter->drawLine(14, 0, 19, 0);
-	painter->drawLine(14, 0, 14, 19);
+	painter->setPen(color);
+	painter->drawLine(0, 0, width, 0);
+	painter->drawLine(0, 0, 0, width);
+}
+
+void PixmapBuilder::drawFancyGrid(QPainter *painter, const QColor &color,
+								  int width)
+{
+	int halfWidth = 0.5*width + 0.5;
+
+	painter->setPen(QPen(color));
+	painter->drawLine(0, halfWidth, width, halfWidth);
+	painter->drawLine(halfWidth, 0, halfWidth, width);
+	painter->setPen(QPen(color));
+	painter->drawLine(0, 0, width, 0);
+	painter->drawLine(0, 0, 0, width);
+	painter->setPen(QPen(color));
+	painter->drawPoint(halfWidth, halfWidth);
+	painter->setPen(QPen(color));
+	painter->drawPoint(0, 0);
 }

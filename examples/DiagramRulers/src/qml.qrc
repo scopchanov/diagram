@@ -6,5 +6,6 @@
         <file>AppDocument.qml</file>
         <file>DocumentWidget.qml</file>
         <file>AppRuler.qml</file>
+        <file>RulerMarkDelegate.qml</file>
     </qresource>
 </RCC>

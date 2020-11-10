@@ -25,7 +25,6 @@ SOFTWARE.
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.12
-import Scopchanov.Diagram 1.0
 import common 1.0
 
 Item {

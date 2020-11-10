@@ -24,10 +24,8 @@ SOFTWARE.
 
 import QtQuick 2.15
 import QtQuick.Layouts 1.12
-import Scopchanov.Diagram 1.0
 
 Item {
-
 	id: root
 
 	property color rulerOutlineColor
@@ -79,6 +77,8 @@ Item {
 		}
 
 		AppRuler {
+			id: vruler
+
 			Layout.fillWidth: true
 			Layout.fillHeight: true
 			Layout.maximumWidth: implicitWidth
@@ -98,6 +98,8 @@ Item {
 
 			Layout.fillWidth: true
 			Layout.fillHeight: true
+			gridSize: Qt.size(rulerMarkInterval, rulerMarkInterval)
+			gridOffset: vruler.markOffset
 		}
 	}
 }
