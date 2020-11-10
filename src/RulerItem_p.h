@@ -29,7 +29,6 @@ SOFTWARE.
 #include <QColor>
 
 class RulerItem;
-class RulerMark;
 
 class RulerItemPrivate
 {

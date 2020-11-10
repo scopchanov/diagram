@@ -26,6 +26,20 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.12
 import Scopchanov.Diagram 1.0
 
+/*!
+	\qmltype AbstractRuler
+	\inqmlmodule Diagram
+	\brief A component that defines the structure of a ruller
+
+	The AbstractRuler is an abstract representation of a ruler. A ruler shows
+	visual marks allowing the user to see which part of the diagram is
+	currently visible.
+
+	AbstractRuler does not contain any visual components. The client of the
+	library should define the components, used for background and foreground,
+	as well as the delegate, used as to render the marks on the screen.
+*/
+
 RulerItem {
 	id: root
 

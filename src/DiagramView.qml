@@ -27,6 +27,11 @@ import QtQuick.Controls 2.15
 import QtQml.Models 2.15
 import Scopchanov.Diagram 1.0
 
+/*!
+	\qmltype DiagramView
+	\inqmlmodule Diagram
+*/
+
 Item {
 	id: root
 
