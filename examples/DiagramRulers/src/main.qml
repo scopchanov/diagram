@@ -55,6 +55,7 @@ ApplicationWindow {
 			rulerOutlineColor: palette.mid
 			rulerFillColor: palette.light
 			rulerMarkColor: palette.windowText
+			rulerMarkInterval: toolBar.markInterval
 			panActive: toolBar.panEnabled
 		}
 	}

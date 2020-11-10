@@ -31,6 +31,7 @@ import common 1.0
 Item {
 	id: root
 
+	readonly property alias markInterval: cmbInterval.currentValue
 	readonly property alias panEnabled: btnPan.checked
 
 	implicitWidth: toolBar.implicitWidth
@@ -49,6 +50,22 @@ Item {
 		RowLayout {
 			anchors.fill: parent
 			spacing: 0
+
+			Label {
+				Layout.leftMargin: 10
+				text: qsTr("Mark interval:")
+				font.pointSize: 10
+			}
+
+			ComboBox {
+				id: cmbInterval
+
+				implicitWidth: 80
+				model: [25, 50, 100, 150]
+				currentIndex: 1
+			}
+
+			ToolSeparator {}
 
 			AppToolButton {
 				id: btnPan

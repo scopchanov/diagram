@@ -33,6 +33,7 @@ Item {
 	property color rulerOutlineColor
 	property color rulerFillColor
 	property color rulerMarkColor
+	property real rulerMarkInterval
 	property alias panActive: documentArea.panActive
 
 	implicitWidth: documentArea.implicitWidth + 20
@@ -74,6 +75,7 @@ Item {
 			fillColor: rulerFillColor
 			outlineColor: rulerOutlineColor
 			markColor: rulerMarkColor
+			markInterval: rulerMarkInterval
 		}
 
 		AppRuler {
@@ -88,6 +90,7 @@ Item {
 			fillColor: rulerFillColor
 			outlineColor: rulerOutlineColor
 			markColor: rulerMarkColor
+			markInterval: rulerMarkInterval
 		}
 
 		AppDocument {

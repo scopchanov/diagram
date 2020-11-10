@@ -31,7 +31,6 @@ AbstractRuler {
 	property color markColor
 
 	headroom: 20
-	markInterval: 50
 	markOffset: 20
 
 	background: Rectangle {
