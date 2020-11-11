@@ -33,8 +33,15 @@ Item {
 	property bool selected: false
 	property alias movable: mouseArea.enabled
 
+	function snapToGrid(n, gridSize) {
+		return Math.round(n/gridSize)*gridSize;
+	}
+
 	implicitWidth: childrenRect.width
 	implicitHeight: childrenRect.height
+
+	onXChanged: x = snapToGrid(x, 10)
+	onYChanged: y = snapToGrid(y, 10)
 
 	Rectangle {
 		id: selectionIndicator
