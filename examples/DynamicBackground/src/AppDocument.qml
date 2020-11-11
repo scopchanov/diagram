@@ -26,7 +26,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import Scopchanov.Diagram 1.0
 
-DiagramView {
+AbstractDiagramView {
 	id: root
 
 	property string gridPattern

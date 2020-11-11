@@ -24,11 +24,11 @@ SOFTWARE.
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQml.Models 2.15
 import Scopchanov.Diagram 1.0
+import "cdk"
 
 /*!
-	\qmltype DiagramView
+	\qmltype AbstractDiagramView
 	\inqmlmodule Diagram
 */
 
@@ -37,31 +37,26 @@ Item {
 
 	property bool interactive: true
 	property bool panActive: false
-	property color frameColor: palette.mid
-	readonly property real sceneWidth: flickable.sceneItem ? flickable.sceneItem.width : -1
-	readonly property real sceneHeight: flickable.sceneItem ? flickable.sceneItem.height : -1
-	readonly property alias scrollX: flickable.contentX
-	readonly property alias scrollY: flickable.contentY
 	default property alias sceneComponent: sceneLoader.sourceComponent
 	property alias background: backgroundLoader.sourceComponent
 	property alias foreground: foregroundLoader.sourceComponent
 	property alias selectionModel: mouseArea.selectionModel
 	property alias selectionMode: mouseArea.selectionMode
+	readonly property alias scrollX: flickable.contentX
+	readonly property alias scrollY: flickable.contentY
 
-	implicitWidth: sceneWidth
-	implicitHeight: sceneHeight
-	clip: true
+	implicitWidth: flickable.contentWidth
+	implicitHeight: flickable.contentHeight
 
 	Flickable {
 		id: flickable
 
-		property alias sceneItem: sceneLoader.item
-
 		anchors.fill: parent
-		contentWidth: sceneWidth; contentHeight: sceneHeight
+		contentWidth: content.width
+		contentHeight: content.height
 		boundsMovement: Flickable.StopAtBounds
 		boundsBehavior: Flickable.StopAtBounds
-		interactive: sceneItem && panActive
+		interactive: root.interactive && panActive
 		clip: true
 
 		ScrollBar.horizontal: ScrollBar { visible: panActive }
@@ -70,7 +65,8 @@ Item {
 		Item {
 			id: content
 
-			width: sceneWidth; height: sceneHeight
+			width: sceneLoader.width
+			height: sceneLoader.height
 
 			Loader {
 				id: backgroundLoader
@@ -80,6 +76,9 @@ Item {
 
 			Loader {
 				id: sceneLoader
+
+				width: item.width
+				height: item.height
 			}
 
 			DropArea {
@@ -91,13 +90,13 @@ Item {
 					console.log("dropped")
 				}
 			}
+
+			Loader {
+				id: foregroundLoader
+
+				anchors.fill: parent
+			}
 		}
-	}
-
-	Loader {
-		id: foregroundLoader
-
-		anchors.fill: parent
 	}
 
 	RubberBand {
@@ -108,25 +107,19 @@ Item {
 		rectangle: mouseArea.selectionRectangle
 	}
 
-	Rectangle {
+	FocusFrame {
 		id: frame
 
 		anchors.fill: parent
-		color: "transparent"
-		border {
-			width: panActive ? 2 : 1
-			color: panActive ? palette.highlight : frameColor
-		}
-
-		Behavior on border.color { ColorAnimation { duration: 150 } }
+		active: panActive
 	}
 
 	DiagramMouseArea {
 		id: mouseArea
 
 		anchors.fill: parent
-		scene: flickable.sceneItem
-		interactive: flickable.sceneItem && !panActive
+		scene: sceneLoader.item
+		interactive: root.interactive && !panActive
 		cursorShape: panActive ? Qt.OpenHandCursor : Qt.ArrowCursor
 	}
 }

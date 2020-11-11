@@ -25,11 +25,8 @@ SOFTWARE.
 import QtQuick 2.15
 import Scopchanov.Diagram 1.0
 
-DiagramView {
+AbstractDiagramView {
 	id: root
-
-	implicitWidth: sceneWidth
-	implicitHeight: sceneHeight
 
 	background: Rectangle {
 		Image {
