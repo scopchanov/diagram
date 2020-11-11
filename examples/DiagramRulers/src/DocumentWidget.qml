@@ -50,6 +50,7 @@ Item {
 			Rectangle {
 				width: 16; height: 16
 				border.color: palette.mid
+				color: rulerFillColor
 
 				Image {
 					anchors.centerIn: parent

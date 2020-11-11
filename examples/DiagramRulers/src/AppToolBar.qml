@@ -32,6 +32,7 @@ Item {
 
 	readonly property alias markInterval: cmbInterval.currentValue
 	readonly property alias panEnabled: btnPan.checked
+	readonly property color backgroundColor: btnBackgroundColor.color
 
 	implicitWidth: toolBar.implicitWidth
 	implicitHeight: toolBar.implicitHeight
@@ -62,6 +63,17 @@ Item {
 				implicitWidth: 80
 				model: [25, 50, 100, 150]
 				currentIndex: 1
+			}
+
+			ColorButton {
+				id: btnBackgroundColor
+
+				Layout.fillHeight: true
+				Layout.leftMargin: 9
+				Layout.rightMargin: 9
+				initialColor: Qt.hsla(0, 0.72, 0.95, 1)
+				toolTipText: qsTr("Set the ruler's background color")
+				text: qsTr("Background")
 			}
 
 			ToolSeparator {}

@@ -53,7 +53,7 @@ ApplicationWindow {
 			Layout.margins: 20
 
 			rulerOutlineColor: palette.mid
-			rulerFillColor: palette.light
+			rulerFillColor: toolBar.backgroundColor
 			rulerMarkColor: palette.windowText
 			rulerMarkInterval: toolBar.markInterval
 			panActive: toolBar.panEnabled

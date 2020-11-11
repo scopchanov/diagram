@@ -1,13 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>AppSlider.qml</file>
         <file>AppToolBar.qml</file>
-        <file>ColorButton.qml</file>
-        <file>ColorPanel.qml</file>
         <file>AppDocument.qml</file>
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>ThemeModel.js</file>
-        <file>LabeledSlider.qml</file>
     </qresource>
 </RCC>

@@ -2,6 +2,10 @@ module common
 AppSplitHandle 1.0 AppSplitHandle.qml
 AppToolButton 1.0 AppToolButton.qml
 AppToolTip 1.0 AppToolTip.qml
+ColorButton 1.0 ColorButton.qml
+ColorPane 1.0 ColorPanel.qml
+AppSlider 1.0 AppSlider.qml
+LabeledSlider 1.0 LabeledSlider.qml
 Elevation 1.0 Elevation.qml
 Shadow 1.0 Shadow.qml
 SiteLink 1.0 SiteLink.qml

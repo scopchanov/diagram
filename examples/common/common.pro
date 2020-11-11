@@ -29,4 +29,8 @@ OTHER_FILES += \
     SiteLink.qml
 
 DISTFILES += \
+    AppSlider.qml \
+    ColorButton.qml \
+    ColorPanel.qml \
+    LabeledSlider.qml \
     qmldir
