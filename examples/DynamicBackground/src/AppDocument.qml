@@ -64,20 +64,4 @@ AbstractDiagramView {
 
 
 	}
-
-	foreground: Item {
-		Label {
-			anchors.centerIn: parent
-			padding: 48
-			font { weight: Font.Medium; pointSize: 24 }
-			text: qsTr("Document area")
-
-			background: Rectangle {
-				color: palette.base
-				border.color: palette.mid
-				opacity: 0.75
-				radius: 4
-			}
-		}
-	}
 }

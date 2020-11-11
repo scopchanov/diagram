@@ -45,22 +45,51 @@ ApplicationWindow {
 	RowLayout {
 		anchors.fill: parent
 
-		AppDocument {
-			id: documentArea
+		Item {
 
 			Layout.alignment: Qt.AlignCenter
 			Layout.margins: 20
 			Layout.fillWidth: true
 			Layout.fillHeight: true
-			Layout.maximumWidth: implicitWidth
-			Layout.maximumHeight: implicitHeight
+			Layout.maximumWidth: documentArea.implicitWidth
+			Layout.maximumHeight: documentArea.implicitHeight
 
-			gridPattern: toolBar.gridPattern
-			gridSize: Qt.size(toolBar.gridSize, toolBar.gridSize)
-			gridColor: toolBar.gridColor
-			backgroundColor: toolBar.backgroundColor
-			gridVisible: toolBar.hasGrid
-			backgroundVisible: toolBar.hasBackground
+			AppDocument {
+				id: documentArea
+
+				anchors.fill: parent
+				gridPattern: toolBar.gridPattern
+				gridSize: Qt.size(toolBar.gridSize, toolBar.gridSize)
+				gridColor: toolBar.gridColor
+				backgroundColor: toolBar.backgroundColor
+				gridVisible: toolBar.hasGrid
+				backgroundVisible: toolBar.hasBackground
+			}
+
+			RowLayout {
+				anchors.fill: parent
+
+				Label {
+					Layout.alignment: Qt.AlignCenter
+					Layout.fillWidth: true
+					Layout.fillHeight: true
+					Layout.maximumWidth: implicitWidth
+					Layout.maximumHeight: implicitHeight
+					horizontalAlignment: Qt.AlignHCenter
+					verticalAlignment: Qt.AlignVCenter
+
+					padding: 48
+					font { weight: Font.Medium; pointSize: 24 }
+					text: qsTr("Document area")
+
+					background: Rectangle {
+						color: palette.base
+						border.color: palette.mid
+						opacity: 0.75
+						radius: 4
+					}
+				}
+			}
 		}
 	}
 }
