@@ -29,7 +29,7 @@ import QtQuick.Layouts 1.12
 ApplicationWindow {
 	id: mainWindow
 
-	width: 800; height: 600
+	width: 1040; height: 840
 	title: qsTr("Diagram Rulers Example")
 	visible: true
 

@@ -31,7 +31,7 @@ import common 1.0
 ApplicationWindow {
 	id: mainWindow
 
-	width: 800; height: 600
+	width: 1040; height: 840
 	title: qsTr("Diagram Selection Example")
 	visible: true
 
