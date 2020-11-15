@@ -43,6 +43,11 @@ DiagramMouseArea::DiagramMouseArea(QQuickItem *parent) :
 	setFiltersChildMouseEvents(true);
 }
 
+DiagramMouseArea::~DiagramMouseArea()
+{
+	delete m_ptr;
+}
+
 /*!
 	\property DiagramMouseArea::scene
 	\brief The scene which contains the diagram items.

@@ -32,6 +32,11 @@ RulerItem::RulerItem(QQuickItem *parent) :
 
 }
 
+RulerItem::~RulerItem()
+{
+	delete m_ptr;
+}
+
 Qt::Orientation RulerItem::orientation() const
 {
 	return m_ptr->orientation;

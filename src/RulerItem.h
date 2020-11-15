@@ -49,6 +49,7 @@ class RulerItem : public QQuickItem
 	QML_ELEMENT
 public:
 	explicit RulerItem(QQuickItem *parent = nullptr);
+	~RulerItem();
 
 	Qt::Orientation orientation() const;
 	void setOrientation(Qt::Orientation orientation);

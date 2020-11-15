@@ -49,6 +49,7 @@ class DiagramMouseArea : public QQuickItem
 	QML_ELEMENT
 public:
 	explicit DiagramMouseArea(QQuickItem *parent = nullptr);
+	~DiagramMouseArea();
 
 	QQuickItem *scene() const;
 	void setScene(QQuickItem *scene);
